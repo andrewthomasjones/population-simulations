@@ -6,20 +6,19 @@ import sys
 import time
 
 
-agene = '/bin/Ne2-1-copy.exe'
+agene = '../bin/AgeNeV2.exe'
 model = sys.argv[1]
 N1 = int(sys.argv[2])
 with_bsf = len(sys.argv) > 3
 
-os.system('python generateAgeNe.py %s %d %s > tmp.agene' % (
-    model, N1, 'yes' if with_bsf else ''))
+os.system('python generateAgeNe.py %s %d %s > /Input/tmp/tmp.agene' % (model, N1, 'yes' if with_bsf else ''))
 
 #os.remove('out.tmp')
 proc = subprocess.Popen(['wine', agene],
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE)
 #proc.stdin.write('tmp.agene\r\nout.tmp\r\n\r\n')
-proc.stdin.write(b'tmp.agene\r\nout.tmp\r\n\r\n')
+proc.stdin.write(b'/Input/tmp/tmp.agene\r\nout.tmp\r\n\r\n')
 proc.stdin.flush()
 time.sleep(3)
 f = open('out.tmp')
