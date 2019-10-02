@@ -1,0 +1,9 @@
+1  	* A number = sum of method(s) to run: LD(=1), Het(=2), Coan(=4), Temporal(=8).
+../Input/NeEstimator/ 	* Input Directory
+[INPUT GOES HERE]	* Input file name
+2 			* 1 = FSTAT format, 2 = GENEPOP format
+../Output/NeEstimator/ 	* Output Directory
+ReadMe V2.1LD.txt* 	* Output file name (put asterisk adjacent to the name to append)
+3 			* Number of critical values, added 1 if a run by rejecting only singleton alleles is included
+0.05  0.02  0.01   	* Critical values, a special value '1' is for rejecting only singleton alleles
+0 		* 0: Random mating, 1: Monogamy (LD method)

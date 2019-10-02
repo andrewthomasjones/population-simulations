@@ -6,7 +6,7 @@ import sys
 import time
 
 
-agene = 'AgeNeV2.exe'
+agene = '/bin/Ne2-1-copy.exe'
 model = sys.argv[1]
 N1 = int(sys.argv[2])
 with_bsf = len(sys.argv) > 3
