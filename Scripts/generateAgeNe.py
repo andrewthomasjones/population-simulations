@@ -6,7 +6,6 @@ from myUtils import ages, survivalFemale, survivalMale, fecFemale, fecMale
 import time
 
 
-
 def generateAgeNe(model, N1, outfile, with_bsf):
     survivalFemale[model].append(0)
     survivalMale[model].append(0)

@@ -12,15 +12,14 @@ agene = main_dir + '\\bin\\AgeNeV2.exe'
 infile = "tmp.agene"
 outfile = "out.tmp"
 
-infile2 = main_dir + '\\bin\\' + infile
-outfile2 = main_dir + '\\bin\\' + outfile
-
+infile2 = main_dir + '\\Output\\' + infile
+outfile2 = main_dir + '\\Output\\' + outfile
 
 model = "grizzly"
 N1 = 100
 with_bsf = ""
 
 generateAgeNe(model, N1, infile2,  'yes' if with_bsf else '')
-ratio = calculateAgeNe(infile, outfile2, agene)
+ratio = calculateAgeNe(infile2, outfile2, agene)
 
 print(ratio)
