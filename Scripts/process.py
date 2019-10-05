@@ -21,6 +21,6 @@ N1 = 100
 with_bsf = ""
 
 generateAgeNe(model, N1, infile2,  'yes' if with_bsf else '')
-ratio = calculateAgeNe(infile, outfile, agene)
+ratio = calculateAgeNe(infile, outfile2, agene)
 
 print(ratio)

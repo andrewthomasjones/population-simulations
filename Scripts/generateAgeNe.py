@@ -39,10 +39,10 @@ def generateAgeNe(model, N1, outfile, with_bsf):
 
 def calculateAgeNe(infile, outfile, agene):
     proc = subprocess.Popen([agene],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
-    proc.stdin.write(("\""+infile + "\"" + "\r\n" + "\"" +outfile + "\"" + "\r\n\r\n").encode())
+    proc.stdin.write((infile + "\r\n").encode())
+    proc.stdin.write((outfile + "\r\n").encode())
     proc.stdin.flush()
     time.sleep(3)
-    proc.stdin.write("\r\n".encode())
 
     try:
         f = open(outfile)
