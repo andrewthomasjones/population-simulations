@@ -47,6 +47,7 @@ def getGenderDemo(name, sizes):
         sizes[toks[0]] = sum(toks[1:])
         l = f.readline()
     f.close()
+
 getGenderDemo(demo + "M", popSizesM)
 getGenderDemo(demo + "F", popSizesF)
 

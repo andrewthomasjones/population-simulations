@@ -19,7 +19,9 @@ model = "grizzly"
 N1 = 100
 with_bsf = ""
 
+#AgeNe interactions
 generateAgeNe(model, N1, infile2,  'yes' if with_bsf else '')
 ratio = calculateAgeNe(infile2, outfile2, agene)
-
 print(ratio)
+
+#Simulations
