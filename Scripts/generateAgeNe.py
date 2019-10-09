@@ -2,9 +2,9 @@ import subprocess
 import os
 import os.path
 from os import path
-from myUtils import ages, survivalFemale, survivalMale, fecFemale, fecMale
 import time
 
+from life_params import ages, survivalFemale, survivalMale, fecFemale, fecMale
 
 def generateAgeNe(model, N1, outfile, with_bsf):
     survivalFemale[model].append(0)
