@@ -1,4 +1,8 @@
-import ConfigParser
+try:
+    import configparser
+except:
+    from six.moves import configparser
+    
 from functools import reduce
 
 def getVarConf(fName):

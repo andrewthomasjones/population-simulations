@@ -2,7 +2,6 @@ from __future__ import print_function
 from sys import stdin, stderr, argv, exit
 import random
 import bz2
-import random
 
 def sampleIndivs(cond, nindivs, startGen, endGen):
 
