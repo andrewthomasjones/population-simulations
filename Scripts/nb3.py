@@ -1,18 +1,16 @@
 from __future__ import print_function
 import bz2
 import sys
-
 import scipy
 from scipy import stats
-
 from myUtils import getVarConf, getConfig
 
-cf = sys.argv[1]
-#sampCohort, sampSize, sampSNP,
-N0s, numGens, reps, dataDir = getVarConf(cf)
 
-models = list(N0s.keys())
-models.sort()
+def nb3(cf):
+    #sampCohort, sampSize, sampSNP,
+    N0s, numGens, reps, dataDir = getVarConf(cf)
+    models = list(N0s.keys())
+    models.sort()
 
 
 def dumpOut(gen, born, curr, prev, parents, gender, cfg):

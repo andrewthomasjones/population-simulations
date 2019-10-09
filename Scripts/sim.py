@@ -8,13 +8,6 @@ simuOptions["Optimized"] = True
 import simuPOP as sp
 from myUtils import getConfig
 
-if len(sys.argv) not in [3, ]:
-    print("Syntax:", sys.argv[0], "<confFile> <prefout>")
-    sys.exit(-1)
-
-cfg = getConfig(sys.argv[1])
-prefOut = sys.argv[2]
-
 
 def createGenome(size, numMSats, numSNPs):
     maxAlleleN = 100
@@ -87,11 +80,6 @@ def evolveSim(sim, gens, mateOp,
         matingScheme=mateOp,
         gen=gens)
 
-(pop, popInitOps, popPreOps, popPostOps, oExpr) = createSinglePop(
-    cfg.popSize, cfg.numMSats + cfg.numSNPs, cfg.startLambda, cfg.lbd)
-(loci, genInitOps, genPreOps) = createGenome(cfg.popSize,
-                                             cfg.numMSats, cfg.numSNPs)
-
 
 def calcDemo(gen, pop):
     myAges = []
@@ -114,8 +102,6 @@ def getRandomPos(arr):
         acu += arr[i]
         if acu >= rnd * sumVal:
             return i
-
-lSizes = [0, 0, 0, 0, 0, 0]
 
 
 def litterSkipGenerator(pop, subPop):
@@ -454,21 +440,28 @@ def createAge(pop):
                                            cutoff=list(range(1, cfg.ages))))
     return ageInitOps, agePreOps, mateOp, agePostOps
 
-(ageInitOps, agePreOps, mateOp, agePostOps) = createAge(pop)
 
+def sim(cfg, prefOut):
+    cfg = getConfig(cfg)
 
-out = open(prefOut + ".sim", "w")
-err = open(prefOut + ".gen", "w")
-megaDB = open(prefOut + ".db", "w")
-reportOps = [
-    sp.Stat(popSize=True),
-    # PyEval(r'"gen %d\n" % gen', reps=0),
-    # PyEval(r'"size %s\n" % subPopSize', reps=0),
-]
-sim = createSim(pop, cfg.reps)
-evolveSim(sim, cfg.gens, mateOp, genInitOps, genPreOps, popInitOps,
-          ageInitOps, popPreOps, agePreOps, popPostOps, agePostOps,
-          reportOps, oExpr)
-out.close()
-err.close()
-megaDB.close()
+    (pop, popInitOps, popPreOps, popPostOps, oExpr) = createSinglePop(
+        cfg.popSize, cfg.numMSats + cfg.numSNPs, cfg.startLambda, cfg.lbd)
+    (loci, genInitOps, genPreOps) = createGenome(cfg.popSize,
+                                                 cfg.numMSats, cfg.numSNPs)
+    lSizes = [0, 0, 0, 0, 0, 0]
+    (ageInitOps, agePreOps, mateOp, agePostOps) = createAge(pop)
+    out = open(prefOut + ".sim", "w")
+    err = open(prefOut + ".gen", "w")
+    megaDB = open(prefOut + ".db", "w")
+    reportOps = [
+        sp.Stat(popSize=True),
+        # PyEval(r'"gen %d\n" % gen', reps=0),
+        # PyEval(r'"size %s\n" % subPopSize', reps=0),
+    ]
+    sim = createSim(pop, cfg.reps)
+    evolveSim(sim, cfg.gens, mateOp, genInitOps, genPreOps, popInitOps,
+              ageInitOps, popPreOps, agePreOps, popPostOps, agePostOps,
+              reportOps, oExpr)
+    out.close()
+    err.close()
+    megaDB.close()

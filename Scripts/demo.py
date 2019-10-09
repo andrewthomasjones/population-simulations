@@ -1,23 +1,8 @@
 from __future__ import division, print_function
 import sys
-
 from scipy import stats
 import numpy
-
 import myUtils
-
-if len(sys.argv) != 2:
-    print("python %s varConfFile" % (sys.argv[0], ))
-    sys.exit(-1)
-
-confFile = sys.argv[1]
-#sampCohort, sampSize, sampSNP,
-N0, numGens, reps, dataDir = \
-  myUtils.getVarConf(confFile)
-
-models = list(N0.keys())
-models.sort()
-
 
 def doModels(fun):
     for model in models:
@@ -131,26 +116,34 @@ def doOfs():
                       nowFemale.get(i, 0)/cnt, totMale.get(i, 0)/cnt,
                       totFemale.get(i, 0)/cnt))
 
-print()
-print("All individuals")
-print("model\tN1\tk\tvk\t (k*popSizes[gen] - 2) / (k-1+ (Vk/k))\tHillNe")
-doMature = False
-doModels(vk)
 
-print()
-print("MATURE")
-print("model\tN1\tk\tvk\t (k*popSizes[gen] - 2) / (k-1+ (Vk/k))\tHillNe")
-try:
-    doMature = True
+def demo(confFile):
+    #sampCohort, sampSize, sampSNP,
+    N0, numGens, reps, dataDir = \
+      myUtils.getVarConf(confFile)
+
+    models = list(N0.keys())
+    models.sort()
+
+    print()
+    print("All individuals")
+    print("model\tN1\tk\tvk\t (k*popSizes[gen] - 2) / (k-1+ (Vk/k))\tHillNe")
+    doMature = False
     doModels(vk)
-except IOError:
-    pass
+    print()
+    print("MATURE")
+    print("model\tN1\tk\tvk\t (k*popSizes[gen] - 2) / (k-1+ (Vk/k))\tHillNe")
+    try:
+        doMature = True
+        doModels(vk)
+    except IOError:
+        pass
 
-try:
-    print("Model\tN1\tcnt\tnowMaleOfs\tnowFemaleOfs\ttotMaleOfs\ttotFemaleOfs")
-    doOfs()
-except IOError:
-    pass
+    try:
+        print("Model\tN1\tcnt\tnowMaleOfs\tnowFemaleOfs\ttotMaleOfs\ttotFemaleOfs")
+        doOfs()
+    except IOError:
+        pass
 
-print("model\tN1\tNc\tN1\tN2\t...")
-doModels(pyr)
+    print("model\tN1\tNc\tN1\tN2\t...")
+    doModels(pyr)

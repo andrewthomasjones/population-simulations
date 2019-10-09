@@ -4,7 +4,6 @@ import random
 import bz2
 import random
 
-
 def sampleIndivs(cond, nindivs, startGen, endGen):
 
     if(nindivs == "ALL"):
