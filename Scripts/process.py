@@ -29,20 +29,23 @@ generateAgeNe(model, N1, infile1,  'yes' if with_bsf else '')
 ratio = calculateAgeNe(infile2, outfile2, agene)
 print(ratio)
 
-#1. I run this line to get the demographic data I need to input into the myUtils ect so that the code has the information it needs to make the simulated data, where grizzly is the name of the model, and 100 is the number of N1 (year of the young) offspring I want.
-#python generateAgeNe.py grizzly 100
+from doSim import doSim
+from totalAll import totalAll
+from demo import demo
+from nb3 import nb3
+from doSim import write
 
-# 3.  I do the sims using this (20 reps)
-#      $ bash doSim.sh 100grizzly 0 20 Data
+doSim("100grizzly", 0, 2, "Output")
+totalAll("Output/var-100grizzly.conf")
+demo_1 = demo( Data/var-100grizzly.conf)
+write("Output/demo.txt", demo_1)
+nb3_1 = nb3(Data/var-100grizzly.conf)
+write("Output/demo.txt", nb3_1)
+totalAll("Output/var-100grizzly.conf", "gen")
 
-# 4. Then I calculate the demographic data from the sims using this.. ** this all looks ok up to this point
-#      $ python totalAll.py Data/var-100grizzly.conf
-
-# 5. Now I can get the stats from the gen and sim files directly
-#      $ python demo.py Data/var-100grizzly.conf > demo.txt.
-
-# ** this is ok too, the stats calculated directly from demographic data
-#      $ python nb3.py Data/var-100grizzly.conf > ne3.txt                         ** this is not ok! From my understanding this is calculated from the simulated data itself….
-
-# 6. Then using the simulated genetic data I make a file using this to put into NeEstimator directly
-#      $ python totalAll.py Data/var-100grizzly.conf gen                             ** this is not ok, but the same of the ne3.txt
+# python generateAgeNe.py grizzly 100 #good
+# bash doSim.sh 100grizzly 0 2 Data
+# python totalAll.py Data/var-100grizzly.conf
+# python demo.py Data/var-100grizzly.conf > demo.txt
+# python nb3.py Data/var-100grizzly.conf > ne3.txt #here
+# python totalAll.py Data/var-100grizzly.conf gen #here
