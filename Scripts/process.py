@@ -3,9 +3,15 @@ import os
 import subprocess
 import sys
 import time
-from generateAgeNe import generateAgeNe,calculateAgeNe
 import os.path as path
 import ntpath
+
+from doSim import doSim
+from totalAll import totalAll
+from demo import demo
+from nb3 import nb3
+from doSim import write
+from generateAgeNe import generateAgeNe,calculateAgeNe
 
 main_dir = path.abspath((path.join(__file__ ,"../..")))
 agene = main_dir + '/bin/AgeNeV2.exe'
@@ -28,12 +34,6 @@ with_bsf = ""
 generateAgeNe(model, N1, infile1,  'yes' if with_bsf else '')
 ratio = calculateAgeNe(infile2, outfile2, agene)
 print(ratio)
-
-from doSim import doSim
-from totalAll import totalAll
-from demo import demo
-from nb3 import nb3
-from doSim import write
 
 doSim("100grizzly", 0, 2, "Output")
 totalAll("Output/var-100grizzly.conf")
