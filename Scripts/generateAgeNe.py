@@ -37,9 +37,10 @@ def generateAgeNe(model, N1, outfile, with_bsf):
     file.close()
 
 def calculateAgeNe(infile, outfile, agene):
-    proc = subprocess.Popen([agene],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
-    proc.stdin.write((infile + "\r\n").encode())
-    proc.stdin.write((outfile + "\r\n").encode())
+    proc = subprocess.Popen(['wine', agene], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+
+    proc.stdin.write(infile.encode())
+    proc.stdin.write(outfile.encode())
     proc.stdin.flush()
     time.sleep(3)
 

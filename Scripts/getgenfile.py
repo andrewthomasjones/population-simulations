@@ -1,6 +1,9 @@
 from __future__ import print_function
 import os
 import sys
+from doSim import gzip_file, un_gzip_file
+from sim import sim
+from topGo import write
 
 def getgenfile(reps, repe, model, agedesc, agecond, nindivs = 100, nloci = 100):
     DDIR = "Data" #data directory
@@ -10,10 +13,14 @@ def getgenfile(reps, repe, model, agedesc, agecond, nindivs = 100, nloci = 100):
         myd["rep"] = rep
         myd["nindivs"] = nindivs
         myd["nloci"] = nloci
-        #os.system('bzcat {DDIR}/{MODEL}{rep}.sim.bz2 |python sampleIndivsCohort.py {AGECOND} {nindivs} 1 {GENS} > {DDIR}/ldout/{MODEL}{AGEDESC}{nindivs}{nloci}-{rep}'.format(**myd))
-        os.system('bzcat {DDIR}/{MODEL}{rep}.sim.bz2 | python sampleIndivsCohort.py {AGECOND} {nindivs} 1 {GENS} |python sampleLoci.py {DDIR}/{MODEL}{rep}.gen.bz2 {nloci} 100  > {DDIR}/ldout/{MODEL}{AGEDESC}{nindivs}{nloci}-{rep}.txt'.format(**myd))
+        data = un_gzip_file(dir+"/"+model+rep+".sim")
+        data2 = sampleIndivsCohort(data, agecond, nindivs, 1, agecond)
+        data3 = sampleLoci(data2, dir+"/"+model+rep+".gen", nloci, 100)
+        write(ddir+"/ldout/"+model+agedesc+nindivs+nloci+"-"+rep++".txt", data3)
 
 
 def doSim(model, reps, repe, dir):
     for rep in range(reps, repe):
-        os.system( "python sim.py  ${DIR}/${MODEL}.conf >${DIR}/${MODEL}${rep}.sim >${DIR}/${MODEL}${rep}.gen")
+        sims = sim(dir+"/"+model+".conf")
+        write(dir+"/"+model+rep+".sim", sims)
+        write(dir+"/"+model+rep+".gen", sims)#???
