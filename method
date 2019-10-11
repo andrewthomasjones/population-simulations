@@ -1,0 +1,6 @@
+python generateAgeNe.py grizzly 100 #good
+bash doSim.sh 100grizzly 0 2 Data
+python totalAll.py Data/var-100grizzly.conf
+python demo.py Data/var-100grizzly.conf > demo.txt
+python nb3.py Data/var-100grizzly.conf > ne3.txt #here
+python totalAll.py Data/var-100grizzly.conf gen #here
